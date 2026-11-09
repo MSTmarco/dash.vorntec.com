@@ -550,14 +550,14 @@ svg.planta .aviso.watch,svg.planta .aviso.ok{fill:var(--pl-dim)}
   <button type="button" id="t-informe" role="tab" aria-selected="true" aria-controls="v-informe" tabindex="0" data-ir="report"><i></i>Report</button>
   <button type="button" id="t-replay" role="tab" aria-selected="false" aria-controls="v-replay" tabindex="-1" data-ir="replay"><i></i>Replay</button>
   <span class="sp"></span>
-  <span class="hint" id="hint">Physics simulation · no field data</span>
+  <span class="hint" id="hint"></span>
 </nav>
 
 <section class="pane pane-informe" id="v-informe" role="tabpanel" aria-labelledby="t-informe">
 <div class="wrap">
 
 <header class="top">
-  <span class="badge"><i></i>Physics simulation of an RNG plant · no field data</span>
+  <span class="badge"><i></i></span>
   <h1>RNG plant failures you can see coming</h1>
   <p class="lede" id="lede-top"></p>
   <button class="cta" data-ir="replay">Open the replay <span aria-hidden="true">→</span></button>
@@ -657,7 +657,7 @@ svg.planta .aviso.watch,svg.planta .aviso.ok{fill:var(--pl-dim)}
     </select>
     <button id="reset">Restart</button>
   </div>
-  <span class="pill"><i style="background:var(--warn)"></i>Physics simulation</span>
+  <span class="pill"><i style="background:var(--warn)"></i></span>
 </div>
 
 <div class="scrub">
@@ -1285,7 +1285,7 @@ $('c-valor').innerHTML =
   `The major failure is the one that matters most: this system must catch its early sign.`;
 
 const LIMS = [
-  '<b>No field data.</b> Every curve comes from a physics simulation that runs in this page when it loads. The mechanisms come from a generic process description of a landfill-gas RNG plant.',
+  '<b>No field data.</b>',
   `<b>The panel alarms are assumed.</b> CO₂ H ${SUP.co2_H} ppm, water H ${fmt(SUP.h2o_H,1)} ppmv, cold box ΔP H ${fmt(SUP.dpcb_H,1)} psi, vibration H/HH ${fmt(SUP.vib_H,1)}/${fmt(SUP.vib_HH,1)} mm/s. Plant setpoints replace them.`,
   `<b>The threshold is the same rule everywhere:</b> mean of the healthy stretch plus ${K.K_SIGMA} σ, and never less than a physical minimum effect. It must hold for a few samples in a row.`,
   '<b>One run per failure.</b> Lead times are single trajectories, not a distribution. A faster fault gives less lead.',
@@ -1302,7 +1302,7 @@ const PEDIDO = [
   '<b>Alarm setpoints</b> of the tags above, and the process model, if there is one.',
 ];
 $('pedido').innerHTML = PEDIDO.map((t,k)=>`<li><em>${String(k+1).padStart(2,'0')}</em><span>${t}</span></li>`).join('');
-$('foot').innerHTML = `<b>Physics simulation, no field data.</b> Seeds 2026–2030, physics at 60 s, historian and ` +
+$('foot').innerHTML = `<b></b> Seeds 2026–2030, physics at 60 s, historian and ` +
   `detector at 5 min. Both archiving options run in this browser on load. Vorntec · RNG plant demo.`;
 })();
 </script>
@@ -1549,7 +1549,7 @@ function arrancar(){ if(corriendo) return; if(i>=W()[1]) irA(W()[0]);
 function parar(){ corriendo=false; $('play').textContent='▶ Run'; clearInterval(timer); }
 
 const LIM={
-  _:[['01','<b>The clock runs over a physics simulation.</b> The fault is injected with the mechanism of a generic RNG process description. No field data.'],
+  _:[['01','<b></b> The fault is injected with the mechanism of a generic RNG process description. No field data.'],
      ['02',`<b>Switch the historian option at any time.</b> The clock stays where it is, so you see the same moment with the other archiving.`]],
   lfg:[['03','<b>Vibration arrives as an alarm state only.</b> The precursor is the suction oscillation of blowers B-101/102. Rain is context only. In this simulation the same liquid in the header drives both, so the link is built in; real data must prove it.'],
        ['04',`<b>After the trip the unit restarts in ${SUP.reinicio_h} h</b> (assumed). The sales valve stays closed until then.`]],
@@ -1570,7 +1570,7 @@ $('reset').onclick=reiniciar;
 $('caso').onchange=e=>{ sel=e.target.value; reiniciar(); };
 $('modo').onchange=e=>{ modo=e.target.value; const k=i; ESC=escalas(); pintarMarcas(); irA(k); };
 
-$('rp-foot').innerHTML=`<b>Physics simulation, no field data.</b> Physics at 60 s; historian and detector at 5 min. ` +
+$('rp-foot').innerHTML=`<b></b> Physics at 60 s; historian and detector at 5 min. ` +
   `Both archiving options come from the same physics run, so the only difference is what the historian stores.`;
 reiniciar();
 
@@ -1594,7 +1594,7 @@ function ir(v){
   
   document.documentElement.dataset.vista=v;
   document.getElementById('hint').textContent = v==='replay'
-    ? 'Accelerated clock over the degradation — or drag the time bar' : 'Physics simulation · no field data';
+    ? 'Accelerated clock over the degradation — or drag the time bar' : '';
   dispatchEvent(new CustomEvent('vista',{detail:v}));
 }
 for(const t of tabs) t.addEventListener('click',()=>{ ir(t.dataset.ir);
